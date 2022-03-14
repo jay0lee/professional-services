@@ -79,17 +79,17 @@ func rotateAdminPassword() {
 		log.Fatalf("Error creating DirectoryService for user: %q, err: %v\n", userEmail, err)
 	}
 
-	// Workspace PATCH call
+	// Workspace UPDATE call
 	for _, user := range users {
 
 		secret := generateRandomPassword()
 
-		r, err := srv.Users.Patch(user,
+		r, err := srv.Users.Update(user,
 			&admin.User{
 				Password: secret,
 			}).Do()
 		if err != nil {
-			log.Fatalf("Error making PATCH API call: %v\n", err)
+			log.Fatalf("Error making UPDATE API call: %v\n", err)
 		}
 		fmt.Printf("Credential rotated for (%s)\n", r.PrimaryEmail)
 
